@@ -27,7 +27,7 @@ const checkWinner = () => {
 };
 
 boxes.forEach((box) => {
-  box.addEventListener("click", () => 
+  box.addEventListener("click", () => {
     if (turn) {
       box.innerText = "X";
       turn = false;
