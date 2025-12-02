@@ -11,10 +11,11 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-direction: column;
 }
 
 h1 {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .container {
@@ -23,7 +24,6 @@ h1 {
 }
 
 .game {
-  margin-top: 3rem;
   height: 60vmin;
   display: flex;
   justify-content: center;
@@ -49,13 +49,36 @@ h1 {
 
 #reset-btn {
   margin-top: 1rem;
+  /* 
+  margin-top: 0.1rem; to it when we're not winning?
+  */
   padding: 10px;
   border-radius: 12px;
   font-size: 1.25rem;
+}
+
+#new_game {
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  margin-top: 1rem;
 }
 
 button:hover {
   background-color: #adcde2;
   border: 2px solid red;
   cursor: pointer;
+}
+
+#msg {
+  margin-top: 0.5rem;
+  background-color: rgb(0, 195, 255);
+  padding: 12px;
+  font-size: 1.7rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.hide {
+  display: none;
 }
