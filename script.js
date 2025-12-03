@@ -52,20 +52,18 @@ let trackingNum = 0;
 const drawGame = () => {
   trackingNum++;
   if (trackingNum === 9) {
-    for (let box of boxes) {
-      for (let pattern of winPatterns) {
-        let pos1Val = boxes[pattern[0]].innerText;
-        let pos2Val = boxes[pattern[1]].innerText;
-        let pos3Val = boxes[pattern[2]].innerText;
-        if (pos1Val !== pos2Val && pos2Val !== pos3Val) {
-          setTimeout(() => {
-            box.innerText = "";
-          }, 100);
-        }
-        msgContainer.classList.remove("hide");
-        msg.innerText = "Game was Draw!";
-        resetBtn.classList.add("hideResetBtn");
+    for (let pattern of winPatterns) {
+      let pos1Val = boxes[pattern[0]].innerText;
+      let pos2Val = boxes[pattern[1]].innerText;
+      let pos3Val = boxes[pattern[2]].innerText;
+      if (pos1Val !== pos2Val && pos2Val !== pos3Val) {
+        setTimeout(() => {
+          box.innerText = "";
+        }, 100);
       }
+      msgContainer.classList.remove("hide");
+      msg.innerText = "Game was Draw!";
+      resetBtn.classList.add("hideResetBtn");
     }
   }
 };
