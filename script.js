@@ -5,6 +5,8 @@ let msgContainer = document.querySelector(".msg-container");
 let msg = document.querySelector("#msg");
 
 let turn = true;
+let gameOver = false;
+
 const winPatterns = [
   [0, 1, 2],
   [0, 3, 6],
@@ -16,71 +18,72 @@ const winPatterns = [
   [6, 7, 8],
 ];
 
+// Enable all boxes and reset UI
 const enabledBoxes = () => {
-  for (let box of boxes) {
+  boxes.forEach((box) => {
     box.disabled = false;
     box.innerText = "";
-  }
-  msgContainer.classList.add("hide");
-};
-
-const resetGame = () => {
-  boxes.forEach((val) => {
-    turn = true;
-    enabledBoxes();
   });
+  msgContainer.classList.add("hide");
+  resetBtn.classList.remove("hideResetBtn");
+  resetBtn.classList.remove("hide");
+  gameOver = false;
 };
 
-resetBtn.addEventListener("click", () => {
-  resetGame();
-});
+// Reset game
+const resetGame = () => {
+  turn = true;
+  enabledBoxes();
+};
 
+resetBtn.addEventListener("click", resetGame);
+
+// Disable all boxes when winner or draw happens
 const disabledBtns = () => {
-  for (let box of boxes) {
-    box.disabled = true;
-  }
+  boxes.forEach((box) => (box.disabled = true));
 };
 
+// Show winner message
 const showWinner = (winner) => {
-  msg.innerText = `Congratulations winner is ${winner}`;
+  msg.innerText = `Congratulations! Winner is ${winner}`;
   msgContainer.classList.remove("hide");
   disabledBtns();
   resetBtn.classList.add("hide");
+  gameOver = true;
 };
 
-let trackingNum = 0;
+// Check for draw
 const drawGame = () => {
-  trackingNum++;
-  if (trackingNum === 9) {
-    for (let pattern of winPatterns) {
-      let pos1Val = boxes[pattern[0]].innerText;
-      let pos2Val = boxes[pattern[1]].innerText;
-      let pos3Val = boxes[pattern[2]].innerText;
-      if (pos1Val !== pos2Val && pos2Val !== pos3Val) {
-        setTimeout(() => {
-          box.innerText = "";
-        }, 100);
-      }
+  let filledCount = 0;
+
+  boxes.forEach((box) => {
+    if (box.innerText !== "") filledCount++;
+  });
+
+  if (filledCount === 9) {
+    // Add animation to all boxes
+    boxes.forEach((box) => {
+      box.classList.add("draw-animation");
+    });
+
+    // Wait for animation, THEN show message
+    setTimeout(() => {
       msgContainer.classList.remove("hide");
       msg.innerText = "Game was Draw!";
+      disabledBtns();
       resetBtn.classList.add("hideResetBtn");
-    }
+    }, 600); // animation duration
   }
 };
 
-boxes.forEach((box) => {
-  box.addEventListener("click", () => {
-    drawGame();
-  });
-});
-
+// Check winner
 const checkWinner = () => {
   for (let pattern of winPatterns) {
     let pos1Val = boxes[pattern[0]].innerText;
     let pos2Val = boxes[pattern[1]].innerText;
     let pos3Val = boxes[pattern[2]].innerText;
 
-    if (pos1Val != "" && pos2Val != "" && pos3Val != "") {
+    if (pos1Val && pos2Val && pos3Val) {
       if (pos1Val === pos2Val && pos2Val === pos3Val) {
         showWinner(pos1Val);
       }
@@ -88,6 +91,7 @@ const checkWinner = () => {
   }
 };
 
+// Handle box clicks
 boxes.forEach((box) => {
   box.addEventListener("click", () => {
     if (turn) {
@@ -97,14 +101,18 @@ boxes.forEach((box) => {
       box.innerText = "0";
       turn = true;
     }
+
     box.disabled = true;
+
     checkWinner();
+    drawGame();
   });
 });
 
-newGameBtn.addEventListener("click", resetGame);
+// New game button
 newGameBtn.addEventListener("click", () => {
-  resetBtn.classList.remove("hide");
-  trackingNum = 0;
-  resetBtn.classList.remove("hideResetBtn");
+  resetGame();
+  boxes.forEach((box) => {
+    box.classList.remove("draw-animation");
+  });
 });

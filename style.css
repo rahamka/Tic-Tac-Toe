@@ -1,3 +1,4 @@
+/* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -12,12 +13,15 @@ body {
   align-items: center;
   text-align: center;
   flex-direction: column;
+  min-height: 100vh;
 }
 
+/* Heading */
 h1 {
   padding: 1rem;
 }
 
+/* Game Layout */
 .container {
   height: 60vh;
   width: 70vh;
@@ -32,6 +36,7 @@ h1 {
   gap: 0.5rem;
 }
 
+/* Game Boxes */
 .box {
   height: 18vmin;
   width: 18vmin;
@@ -41,24 +46,21 @@ h1 {
   cursor: pointer;
   font-size: 50px;
   color: #ff0800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s, transform 0.3s;
 }
 
 .box:hover {
   background-color: bisque;
 }
 
-#reset-btn {
-  margin-top: 1rem;
+/* Buttons */
+button {
   padding: 10px;
   border-radius: 12px;
   font-size: 1.25rem;
-}
-
-#new_game {
-  padding: 10px;
-  border-radius: 12px;
-  font-size: 1.25rem;
-  margin-top: 1rem;
 }
 
 button:hover {
@@ -67,6 +69,15 @@ button:hover {
   cursor: pointer;
 }
 
+#reset-btn {
+  margin-top: 1rem;
+}
+
+#new_game {
+  margin-top: 1rem;
+}
+
+/* Message Styling */
 #msg {
   margin-top: 0.5rem;
   background-color: rgb(0, 195, 255);
@@ -82,4 +93,21 @@ button:hover {
 
 .hideResetBtn {
   display: none;
+}
+
+/* ⭐ Draw Animation */
+.draw-animation {
+  animation: fadeShrink 0.6s ease forwards;
+}
+
+/* Animation Keyframes */
+@keyframes fadeShrink {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(0.7);
+  }
 }
