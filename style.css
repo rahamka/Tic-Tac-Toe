@@ -79,3 +79,7 @@ button:hover {
 .hide {
   display: none;
 }
+
+.hideResetBtn {
+  display: none;
+}

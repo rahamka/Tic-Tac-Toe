@@ -48,11 +48,35 @@ const showWinner = (winner) => {
   resetBtn.classList.add("hide");
 };
 
+let trackingNum = 0;
 const drawGame = () => {
-  for (let box of boxes) {
-    box.innerHTML = "";
+  trackingNum++;
+  if (trackingNum === 9) {
+    for (let pattern of winPatterns) {
+      let pos1Val = boxes[pattern[0]].innerText;
+      let pos2Val = boxes[pattern[1]].innerText;
+      let pos3Val = boxes[pattern[2]].innerText;
+      if (pos1Val !== pos2Val && pos2Val !== pos3Val) {
+        for (let box of boxes) {
+          setTimeout(() => {
+            box.innerText = "";
+          }, 100);
+        }
+        // remove the hide from msgContainer
+        msgContainer.classList.remove("hide");
+        msg.innerText = "Game was Draw!";
+        resetBtn.classList.add("hideResetBtn");
+      }
+    }
   }
+  // how to get the last click?
 };
+
+boxes.forEach((box, index) => {
+  box.addEventListener("click", () => {
+    drawGame();
+  });
+});
 
 const checkWinner = () => {
   for (let pattern of winPatterns) {
@@ -85,6 +109,6 @@ boxes.forEach((box) => {
 newGameBtn.addEventListener("click", resetGame);
 newGameBtn.addEventListener("click", () => {
   resetBtn.classList.remove("hide");
+  trackingNum = 0;
+  resetBtn.classList.remove("hideResetBtn");
 });
-
-// writing the logic on drawGame.
