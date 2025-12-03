@@ -48,6 +48,12 @@ const showWinner = (winner) => {
   resetBtn.classList.add("hide");
 };
 
+const drawGame = () => {
+  for (let box of boxes) {
+    box.innerHTML = "";
+  }
+};
+
 const checkWinner = () => {
   for (let pattern of winPatterns) {
     let pos1Val = boxes[pattern[0]].innerText;
@@ -80,3 +86,5 @@ newGameBtn.addEventListener("click", resetGame);
 newGameBtn.addEventListener("click", () => {
   resetBtn.classList.remove("hide");
 });
+
+// writing the logic on drawGame.

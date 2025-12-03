@@ -49,9 +49,6 @@ h1 {
 
 #reset-btn {
   margin-top: 1rem;
-  /* 
-  margin-top: 0.1rem; to it when we're not winning?
-  */
   padding: 10px;
   border-radius: 12px;
   font-size: 1.25rem;
